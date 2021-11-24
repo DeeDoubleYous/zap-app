@@ -1,4 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@media (prefers-color-scheme: light){
+    :root{
+        --main: rgb(170, 166, 166);
+        --accent: red;
+        --text-main: black;
+        --text-inverted: white;
+    }
+}
+@media (prefers-color-scheme: dark){
+    :root{
+        --main: black;
+        --text-main: rgb(184, 176, 176);
+        --text-inverted: black;
+        --accent: rgb(163, 5, 5);
+    }
+}
+
+html, body { height: 100%; width: 100%; overflow: hidden;}
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: var(--main);}

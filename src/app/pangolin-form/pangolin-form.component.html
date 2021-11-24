@@ -1,18 +1,15 @@
-<form class='pangolinInput' (submit)='handleSubmit($event)'>
-    <input type="file" name="pangolinImage" id="pangolinImage" accept="image/*" (change)="handleImageChange($event)"/><br/>
-    <label for="isDead">Is the pangolin Dead?</label><br/>
-    <input type="radio" name="isDead" value="True" [(ngModel)]='isDead'><label for="true">Yes</label><br/>
-    <input type="radio" name="isDead" value="False" [(ngModel)]='isDead'><label for="false">No</label><br/>
-    <select name="deathType" id="deathType" [(ngModel)]="deathType">
-        <option *ngFor='let deathTy of deathTypes' [value]='deathTy'>{{deathTy}}</option>
-    </select><br/>
-    <label for="note">Additional notes:</label><br/>
-    <input type="text" name="note" id="note" [(ngModel)]='note'><br/>
-    <input type="submit" value="Submit">
-</form>
-<!-- <div class='pangolinInput'>
-    <label for='deathType'>How it died</label><br/>
-    <select name='deathType' id='deathType' >
-        <option *ngFor='let deathTy of deathTypes' [value]='deathTy'>{{deathTy}}</option>
-    </select>
-</div> -->
+<div class='container'>
+    <img [src]='imageUrl' alt='The uploaded pangolin image' class='pangolinPreview'>
+    <form class='pangolinInput' (submit)='handleSubmit($event)'>
+        <input type="file" name="pangolinImage" id="pangolinImage" accept="image/*" (change)="handleImageChange($event)"/><br/>
+        <label for="isDead">Is the pangolin Dead?</label><br/>
+        <input type="radio" name="isDead" value="True" [(ngModel)]='isDead'><label for="true">Yes</label><br/>
+        <input type="radio" name="isDead" value="False" [(ngModel)]='isDead'><label for="false">No</label><br/>
+        <select name="deathType" id="deathType" [(ngModel)]="deathType">
+            <option *ngFor='let deathTy of deathTypes' [value]='deathTy'>{{deathTy}}</option>
+        </select><br/>
+        <label for="note">Additional notes:</label><br/>
+        <input type="text" name="note" id="note" [(ngModel)]='note'><br/>
+        <input type="submit" value="Submit">
+    </form>
+</div>

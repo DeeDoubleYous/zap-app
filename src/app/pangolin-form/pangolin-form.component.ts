@@ -9,7 +9,10 @@ import { HttpClient } from '@angular/common/http';
 })
 export class PangolinFormComponent implements OnInit {
   
+  url = 'https://dw470.brighton.domains/zap_api';
+
   image?:File;
+  imageUrl = './assets/images/defaultImage.png';
 
   @Input() isDead?: boolean;
   @Input() deathType?: string;
@@ -26,21 +29,22 @@ export class PangolinFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  handleSubmit(e: Event): void{
-    // e.preventDefault();
+  async handleSubmit(e: Event): Promise<void>{
     console.log('submit');
 
-    if(this.checkInputs()){
-      this.http.post('https://dw470.brighton.domains/zap_api', {
-        time: '2021/11/22 12:08', 
-        pangolinImage: this.image,
-        isDead: this.isDead,
-        location:{
-          lat: '55',
-          lon: '22'
-        }
-      }).subscribe(res => console.log(res));
-      // this.http.get('https://dw470.brighton.domains/zap_api', {responseType: 'text'}).subscribe(res => console.log(res));
+    if(this.image && this.isDead){
+      console.log('here');
+      const request = new FormData();
+     
+      request.set('pangolinImage', this.image);
+      request.set('isDead', `${this.isDead}`);
+      request.set('time', `${this.generateDateString()}`);
+      request.set('location', JSON.stringify({lat: 2, lon: 3}));
+
+      const response = await fetch(this.url, {
+        body: request,
+        method: 'POST'
+      }).catch(console.error);
     }
   }
 
@@ -48,14 +52,17 @@ export class PangolinFormComponent implements OnInit {
     const input = e.target as HTMLInputElement;
     if(input.files){
       this.image = input.files[0];
+
+      const reader = new FileReader();
+      reader.readAsDataURL(input.files[0]);
+      reader.onload = (e) => {
+        this.imageUrl = reader.result as string;
+      }
     }
   }
 
-  private checkInputs():boolean{
-    if(this.image && this.isDead){
-      return true;
-    }else{
-      return false;
-    }
+  generateDateString(): string {
+    const date = new Date(Date.now());
+    return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()} ${date.getHours()}:${date.getMinutes()}`
   }
 }
