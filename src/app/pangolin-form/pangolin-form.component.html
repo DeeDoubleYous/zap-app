@@ -3,13 +3,14 @@
     <form class='pangolinInput' (submit)='handleSubmit($event)'>
         <input type="file" name="pangolinImage" id="pangolinImage" accept="image/*" (change)="handleImageChange($event)"/><br/>
         <label for="isDead">Is the pangolin Dead?</label><br/>
-        <input type="radio" name="isDead" value="True" [(ngModel)]='isDead'><label for="true">Yes</label><br/>
-        <input type="radio" name="isDead" value="False" [(ngModel)]='isDead'><label for="false">No</label><br/>
+        <input type="radio" name="isDead" value="True" [(ngModel)]='isDead' class='isDead'><label for="true">Yes</label><br/>
+        <input type="radio" name="isDead" value="False" [(ngModel)]='isDead' class='isDead'><label for="false">No</label><br/>
+        <label for="deathType">How did the pangolin die?</label>
         <select name="deathType" id="deathType" [(ngModel)]="deathType">
             <option *ngFor='let deathTy of deathTypes' [value]='deathTy'>{{deathTy}}</option>
         </select><br/>
         <label for="note">Additional notes:</label><br/>
-        <input type="text" name="note" id="note" [(ngModel)]='note'><br/>
-        <input type="submit" value="Submit">
+        <textarea name="note" id="note" cols="30" rows="10" [(ngModel)]='note'></textarea><br/>
+        <input type="submit" value="Submit" id='submit'>
     </form>
 </div>

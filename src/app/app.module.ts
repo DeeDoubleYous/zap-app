@@ -9,12 +9,16 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { HomeComponent } from './home/home.component';
 import { FormsModule } from '@angular/forms';
+import { ListViewComponent } from './list-view/list-view.component';
+import { PangolinItemComponent } from './pangolin-item/pangolin-item.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PangolinFormComponent,
-    HomeComponent
+    HomeComponent,
+    ListViewComponent,
+    PangolinItemComponent
   ],
   imports: [
     BrowserModule,
