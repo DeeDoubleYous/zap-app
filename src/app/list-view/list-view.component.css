@@ -15,14 +15,17 @@ ul{
 ul::-webkit-scrollbar{
     width: 0.5rem;
     background: none;
+    opacity: 0;
 }
 
 ul::-webkit-scrollbar-thumb{
     background: var(--accent);
-    border-radius: 1rem;
+    opacity: 0;
+    border-radius: 0.2rem;
 }
 
 ul::-webkit-scrollbar-track{
+    opacity: 0;
     width: none;
     background: none;
 }
