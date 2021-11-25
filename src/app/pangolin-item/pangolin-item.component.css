@@ -7,11 +7,30 @@ p{
     color: var(--text-main);
 }
 
-div{
+.pangolinItemContainer{
     padding-top: 0.5rem;
     height: 20%;
     width: 99%;
     border: solid 0.2rem var(--accent);
     border-bottom: solid 0.1rem var(--accent);
     border-top: solid 0.2rem var(--accent);
+}
+
+@media only screen and (min-width: 768px) {
+    .pangolinItemContainer{
+        display: grid;
+        grid-template-columns: 50% 50%;
+        grid-template-areas: 'pangolinImage pangolinInfo';
+    }
+
+    .pangolinImage{
+        grid-area: pangolinImage;
+        width: 100%;
+        height: 100%;
+    }
+
+    .pangolinInfo{
+        grid-area: pangolinInfo;
+    }
+
 }
