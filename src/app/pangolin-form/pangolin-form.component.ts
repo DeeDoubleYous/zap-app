@@ -11,10 +11,13 @@ export class PangolinFormComponent implements OnInit {
   
   url = 'https://dw470.brighton.domains/zap_api';
 
-  image?:File;
-  imageUrl = './assets/images/defaultImage.png';
+  defaultImage = './assets/images/defaultImage.png';
 
-  @Input() isDead?: boolean;
+  image?:File | null;
+  imageUrl = this.defaultImage;
+  imageList?: File[];
+
+  @Input() isDead:boolean = false;
   @Input() deathType?: string;
   @Input() note?: string;
 
@@ -32,8 +35,8 @@ export class PangolinFormComponent implements OnInit {
   async handleSubmit(e: Event): Promise<void>{
     console.log('submit');
 
-    if(this.image && this.isDead){
-      console.log('here');
+    if(this.image){
+      console.log(this.imageList);
       const request = new FormData();
      
       request.set('pangolinImage', this.image);
@@ -41,10 +44,14 @@ export class PangolinFormComponent implements OnInit {
       request.set('time', `${this.generateDateString()}`);
       request.set('location', JSON.stringify({lat: 2, lon: 3}));
 
+      console.log(this.isDead);
+
       const response = await fetch(this.url, {
         body: request,
         method: 'POST'
       }).catch(console.error);
+
+      this.clearInputs();
     }
   }
 
@@ -64,5 +71,14 @@ export class PangolinFormComponent implements OnInit {
   generateDateString(): string {
     const date = new Date(Date.now());
     return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()} ${date.getHours()}:${date.getMinutes()}`
+  }
+
+  clearInputs(): void{
+    this.isDead = false;
+    this.deathType = '';
+    this.note = '';
+    this.image = null;
+    this.imageUrl = this.defaultImage;
+    this.imageList = [];
   }
 }

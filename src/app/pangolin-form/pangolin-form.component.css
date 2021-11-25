@@ -12,11 +12,18 @@
 
 .pangolinInput{
     grid-area: formInput;
+    position: relative;
     background: none;
     color: var(--text-main);
     width: 99%;
     height: 100%;
     border: solid 0.1rem var(--accent);
+    overflow-y: auto;
+    min-height: 100%;
+}
+
+.pangolinInput::-webkit-scrollbar{
+    width: 0.5rem;
 }
 
 .pangolinPreview{
@@ -30,8 +37,8 @@
     background: var(--accent);
     color: var(--text-main);
     border: none;
-    height: 10rem;
-    width: 20rem;
+    height: 40%;
+    width: 85%;
     /* text-align: left; */
     text-align: start;
     position: relative;
@@ -40,10 +47,18 @@
 
 input{
     position: relative;
-    left: 2rem;
+    left: 8%;
     background: var(--accent);
     outline: none;
     border: none;
+    border-radius: 1rem;
+}
+
+#note{
+    border-radius: 1rem;
+    position: relative;
+    left: 8%;
+    width: 85%;
 }
 
 #note:focus{
@@ -51,11 +66,13 @@ input{
 }
 
 #deathType{
-    width: 20.3rem;
+    width: 85%;
     height: 2rem;
     position: relative;
-    left: 2rem;
+    left: 8%;
     background: var(--accent);
+    border-radius: 1rem;
+    color: var(--text-main);
 }
 
 #deathType:focus{
@@ -63,7 +80,9 @@ input{
 }
 
 #submit{
-    width: 20.2rem;
+    width: 85%;
+    height: 3rem;
+    color: var(--text-main)
 }
 
 #submit:active{
@@ -72,14 +91,19 @@ input{
 
 label{
     position: relative;
-    left: 2rem;
+    left: 8%;
 }
 
 @media only screen and (min-width: 768px) {
     .container{
         grid-template-columns: 50% 50%;
+        grid-template-rows: 100%;
         grid-template-areas: 'formInput imgPreview';
         gap: 0.2% 0.1%;
     }
-    
+    .pangolinInput{
+        height: 90%;
+        overflow: none;
+        width: 100%;
+    }
 }

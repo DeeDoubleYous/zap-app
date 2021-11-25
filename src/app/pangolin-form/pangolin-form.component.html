@@ -1,11 +1,11 @@
 <div class='container'>
     <img [src]='imageUrl' alt='The uploaded pangolin image' class='pangolinPreview'>
     <form class='pangolinInput' (submit)='handleSubmit($event)'>
-        <input type="file" name="pangolinImage" id="pangolinImage" accept="image/*" (change)="handleImageChange($event)"/><br/>
+        <input type="file" name="pangolinImage" id="pangolinImage" accept="image/*" (change)="handleImageChange($event)" [(ngModel)]='imageList'/><br/>
         <label for="isDead">Is the pangolin Dead?</label><br/>
-        <input type="radio" name="isDead" value="True" [(ngModel)]='isDead' class='isDead'><label for="true">Yes</label><br/>
-        <input type="radio" name="isDead" value="False" [(ngModel)]='isDead' class='isDead'><label for="false">No</label><br/>
-        <label for="deathType">How did the pangolin die?</label>
+        <input type="radio" name="isDead" value="true" [(ngModel)]='isDead' class='isDead'><label for="true">Yes</label><br/>
+        <input type="radio" name="isDead" value="false" [(ngModel)]='isDead' class='isDead'><label for="false">No</label><br/>
+        <label for="deathType">How did the pangolin die?</label><br/>
         <select name="deathType" id="deathType" [(ngModel)]="deathType">
             <option *ngFor='let deathTy of deathTypes' [value]='deathTy'>{{deathTy}}</option>
         </select><br/>
