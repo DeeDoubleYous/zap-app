@@ -9,7 +9,8 @@ import { IPangolinRecord } from '../interfaces/IPangolinRecord';
 export class PangolinItemComponent implements OnInit {
 
   
-  url = 'https://dw470.brighton.domains/zap_api/';
+  // url = 'https://dw470.brighton.domains/zap_api/';
+  url = './assets/iamges/default.png';
 
   @Input() pangolin?: IPangolinRecord;
 

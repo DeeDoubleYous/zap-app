@@ -1,3 +1,15 @@
+.pangolinImage{
+    width: 90%;
+    height: 20%;
+}
+
 p{
     color: var(--text-main);
+}
+
+div{
+    padding-top: 0.5rem;
+    height: 20%;
+    width: 99.434%;
+    border: solid 0.1rem var(--accent);
 }

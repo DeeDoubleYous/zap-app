@@ -1,4 +1,7 @@
 <div>
-    <img [src]='url + pangolin?.imageUrl'/>
-    Found dead: {{pangolin?.isDead}} 
+    <!-- <img [src]='url + pangolin?.imageUrl'/> -->
+    <img [src]='pangolin?.imageUrl' alt="" class='pangolinImage'>
+    <p>{{pangolin?.isDead ? 'Found dead' : 'Found Alive'}}</p>
+    <p>{{pangolin?.deathType && 'Cause of death: ' + pangolin?.deathType}}</p>
+    <p>{{'Found on: ' +  pangolin?.time?.toLocaleDateString()}}</p>
 </div>
