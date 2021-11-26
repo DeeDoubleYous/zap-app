@@ -44,12 +44,10 @@ export class PangolinFormComponent implements OnInit {
       request.set('time', `${this.generateDateString()}`);
       request.set('location', JSON.stringify({lat: 2, lon: 3}));
 
-      console.log(this.isDead);
-
-      const response = await fetch(this.url, {
-        body: request,
-        method: 'POST'
-      }).catch(console.error);
+      // const response = await fetch(this.url, {
+      //   body: request,
+      //   method: 'POST'
+      // }).catch(console.error);
 
       this.clearInputs();
     }

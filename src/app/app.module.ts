@@ -13,6 +13,7 @@ import { ListViewComponent } from './list-view/list-view.component';
 import { PangolinItemComponent } from './pangolin-item/pangolin-item.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { MapComponent } from './map/map.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { environment } from '../environments/environment';
     PangolinFormComponent,
     HomeComponent,
     ListViewComponent,
-    PangolinItemComponent
+    PangolinItemComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule,
