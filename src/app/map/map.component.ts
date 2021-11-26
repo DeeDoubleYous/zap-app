@@ -23,10 +23,9 @@ export class MapComponent implements AfterViewInit {
     +           '?access_token={accessToken}', {
       attribution: 'Map data &copy; OpenstreetMap | '
                   + 'Map tiles &copy; Mapbox',
-      tileSize: 512,
-      maxZoom: 18,
-      zoomOffset: 18,
-      id: 'mapbox/dark-v11',
+      tileSize: 256,
+      maxZoom: 22,
+      id: 'mapbox/dark-v10',
       accessToken: 'pk.eyJ1IjoiYWxleC13aXNoYXJ0IiwiYSI6ImNrdWNoczhqbTEwZ2EycHF2aTM5OHA4MGcifQ.RVRYKZRa6CRVJ1I6ui1ogg'
     }).addTo(this.map);
 
