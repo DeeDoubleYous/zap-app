@@ -9,8 +9,7 @@ import { IPangolinRecord } from '../interfaces/IPangolinRecord';
 export class PangolinItemComponent implements OnInit {
 
   
-  // url = 'https://dw470.brighton.domains/zap_api/';
-  url = './assets/iamges/default.png';
+  url = 'https://dw470.brighton.domains/zap_api/';
 
   @Input() pangolin?: IPangolinRecord;
 
@@ -18,6 +17,22 @@ export class PangolinItemComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+  }
+
+  fetchDateString(): string{
+    if(this.pangolin?.time){
+      const date = new Date(this.pangolin.time);
+      return date.toLocaleDateString();
+    }
+    return '';
+  } 
+
+  fetchTimeString(): string{
+    if(this.pangolin?.time){
+      const date = new Date(this.pangolin.time);
+      return date.toLocaleTimeString();
+    }
+    return '';
   }
 
 }

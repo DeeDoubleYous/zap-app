@@ -33,7 +33,6 @@ export class PangolinFormComponent implements OnInit {
   }
 
   async handleSubmit(e: Event): Promise<void>{
-    console.log('submit');
 
     if(this.image){
       console.log(this.imageList);
@@ -44,10 +43,10 @@ export class PangolinFormComponent implements OnInit {
       request.set('time', `${this.generateDateString()}`);
       request.set('location', JSON.stringify({lat: 2, lon: 3}));
 
-      // const response = await fetch(this.url, {
-      //   body: request,
-      //   method: 'POST'
-      // }).catch(console.error);
+      const response = await fetch(this.url, {
+        body: request,
+        method: 'POST'
+      }).catch(console.error);
 
       this.clearInputs();
     }

@@ -1,9 +1,9 @@
 <div class='pangolinItemContainer'>
-    <!-- <img [src]='url + pangolin?.imageUrl'/> -->
-    <img [src]='pangolin?.imageUrl' alt="" class='pangolinImage'>
-    <div class='pangolinInfor'>
+    <img class='pangolinImage' [src]='url + pangolin?.imageUrl'/>
+    <div class='pangolinInfo'>
         <p>{{pangolin?.isDead ? 'Found dead' : 'Found Alive'}}</p>
         <p>{{pangolin?.deathType && 'Cause of death: ' + pangolin?.deathType}}</p>
-        <p>{{'Found on: ' +  pangolin?.time?.toLocaleDateString()}}</p>
+        <p>{{'Date found: ' + fetchDateString()}}</p>
+        <p>{{'Time found: ' +  fetchTimeString()}}</p>
     </div>
 </div>

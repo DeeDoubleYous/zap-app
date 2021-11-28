@@ -20,7 +20,7 @@ export class ListViewComponent implements OnInit {
   }
 
   getList(): void{
-    this.listService.getExampleList().subscribe(result => this.pangolinList = result);
+    this.listService.getPangolinList().subscribe(result => this.pangolinList = result);
   }
 
 }
