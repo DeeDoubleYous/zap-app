@@ -35,7 +35,6 @@ export class PangolinFormComponent implements OnInit {
   async handleSubmit(e: Event): Promise<void>{
 
     if(this.image){
-      console.log(this.imageList);
       const request = new FormData();
      
       request.set('pangolinImage', this.image);
@@ -67,7 +66,7 @@ export class PangolinFormComponent implements OnInit {
 
   generateDateString(): string {
     const date = new Date(Date.now());
-    return `${date.getFullYear()}/${date.getMonth()}/${date.getDay()} ${date.getHours()}:${date.getMinutes()}`
+    return `${date.getFullYear()}/${date.getMonth()}/${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
   }
 
   clearInputs(): void{
