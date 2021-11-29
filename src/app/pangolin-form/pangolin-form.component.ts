@@ -41,6 +41,8 @@ export class PangolinFormComponent implements OnInit {
       request.set('isDead', `${this.isDead}`);
       request.set('time', `${this.generateDateString()}`);
       request.set('location', JSON.stringify({lat: 2, lon: 3}));
+      request.set('deathType', `${this.deathType}`);
+      request.set('note', `${this.note}`);
 
       const response = await fetch(this.url, {
         body: request,
