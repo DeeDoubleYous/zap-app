@@ -17,9 +17,9 @@ export class PangolinFormComponent implements OnInit {
   imageUrl = this.defaultImage;
   imageList?: File[];
 
-  @Input() isDead:boolean = false;
-  @Input() deathType?: string;
-  @Input() note?: string;
+  isDead:boolean = false;
+  deathType?: string;
+  note?: string;
 
   constructor(
     private http: HttpClient
