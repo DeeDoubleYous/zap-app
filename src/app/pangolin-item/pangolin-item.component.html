@@ -2,9 +2,8 @@
     <img class='pangolinImage' [src]='url + pangolin?.imageUrl'/>
     <div class='pangolinInfo'>
         <p>{{pangolin?.isDead ? 'Found dead' : 'Found Alive'}}</p>
-        <p>{{pangolin?.deathType && 'Cause of death: ' + pangolin?.deathType}}</p>
-        <p>{{'Date found: ' + fetchDateString()}}</p>
-        <p>{{'Time found: ' +  fetchTimeString()}}</p>
-        <p>{{'Additional notes: \n' + pangolin?.note}}</p>
+        <p>{{'Date found: ' + fetchDateString() + ' Time found: ' + fetchTimeString()}}</p>
+        <p *ngIf='pangolin?.deathType'>{{'Reported cause of death: ' + pangolin?.deathType}}</p>
+        <p *ngIf='pangolin?.note'>{{'Additional notes: ' + pangolin?.note}}</p>
     </div>
 </div>
