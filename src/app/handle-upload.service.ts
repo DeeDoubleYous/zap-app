@@ -13,52 +13,51 @@ export class UploadService{
   constructor(
     private http: HttpClient
   ) {
+    this.init();
+  }
+
+  init(): void{
     const queueCache = localStorage.getItem('queuedUploads');
-    
+
     if(queueCache){
       const queue = JSON.parse(queueCache);
       this.queuedUploads = queue.queue;
-      localStorage.clear();
     }
 
-    window.addEventListener('pagehide', e => {
+    if(navigator.onLine){
+      this.performQueueUpload();
+    }
+
+    window.addEventListener('online', () => {
+      this.performQueueUpload();
+    });
+
+    window.addEventListener('pagehide', () => {
       const queue = JSON.stringify({
         queue: this.queuedUploads
       });
       localStorage.setItem('queuedUploads', queue);
     });
-
-    window.addEventListener('online', () => {
-      console.log('online event');
-      // this.performUpload();
-    });
   }
 
-
-  addUpload(upload: FormData):void{
-    this.queuedUploads.push(upload);
+  upload(upload: FormData){
+    if(navigator.onLine){
+      this.http.post(this.url, upload);
+    }else{
+      this.queuedUploads.push(upload);
+    }
   }
 
-  performUpload(): void{
-    this.queuedUploads = this.performUploadHelper(this.queuedUploads);
+  performQueueUpload(): void{
+    this.queuedUploads = this.performQueueUploadHelper(this.queuedUploads);
   }
 
-  performUploadHelper([upload, ...tail ]: FormData[]): FormData[]{
+  performQueueUploadHelper([upload, ...tail ]: FormData[]): FormData[]{
     if(upload){
       this.http.post(this.url, upload);
-      return this.performUploadHelper(tail);
+      return this.performQueueUploadHelper(tail);
     }
     return [];
-  }
-
-  run(): void{
-    if(navigator.onLine){
-      this.performUpload();
-    }else{
-      self.addEventListener('online', () => {
-        this.performUpload();
-      });
-    }
   }
 
 }
