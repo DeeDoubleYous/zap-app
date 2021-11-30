@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { IPangolinRecord } from '../interfaces/IPangolinRecord';
-import { HttpClient } from '@angular/common/http';
+import { UploadService } from '../handle-upload.service';
 
 @Component({
   selector: 'app-pangolin-form',
@@ -22,7 +22,7 @@ export class PangolinFormComponent implements OnInit {
   note?: string;
 
   constructor(
-    private http: HttpClient
+    private uploadService: UploadService
   ) { }
 
   deathTypes: string[] = ['electric fences', 'vehicle', 'I done did it myself', 'natural causes'];

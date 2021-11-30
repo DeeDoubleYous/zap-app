@@ -4,6 +4,6 @@
 <nav class='navBar'>
   <button routerLink="/home">Home</button>
   <button routerLink="/form">New</button>
-  <button routerLink="/list">List</button>
-  <button routerLink="/map">Map</button>
+  <button routerLink="/list" *ngIf='isOnline'>List</button>
+  <button routerLink="/map" *ngIf='isOnline'>Map</button>
 </nav>

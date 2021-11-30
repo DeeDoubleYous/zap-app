@@ -23,6 +23,14 @@ export class PangolinListService {
     return this.http.get<IPangolinRecord[]>(`${this.url}/list`);
   }
 
+  getPangolinListFiltered(isDead: boolean):Observable<IPangolinRecord[]>{
+    return this.http.get<IPangolinRecord[]>(`${this.url}/list`, {
+      params: {
+        'isDead': isDead,
+      }
+    });
+  }
+
   getExampleList():Observable<IPangolinRecord[]>{
     return of(exmplePangolin);
   }
