@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class UploadService{
     this.init();
   }
 
-  init(): void{
+  private init(): void{
     const queueCache = localStorage.getItem('queuedUploads');
 
     if(queueCache){
@@ -42,19 +43,20 @@ export class UploadService{
 
   upload(upload: FormData){
     if(navigator.onLine){
-      this.http.post(this.url, upload);
+      return this.http.post(this.url, upload);
     }else{
       this.queuedUploads.push(upload);
+      return of(this.queuedUploads);
     }
   }
 
-  performQueueUpload(): void{
+  private performQueueUpload(): void{
     this.queuedUploads = this.performQueueUploadHelper(this.queuedUploads);
   }
 
-  performQueueUploadHelper([upload, ...tail ]: FormData[]): FormData[]{
+  private performQueueUploadHelper([upload, ...tail ]: FormData[]): FormData[]{
     if(upload){
-      this.http.post(this.url, upload);
+      this.http.post(this.url, upload).subscribe();
       return this.performQueueUploadHelper(tail);
     }
     return [];

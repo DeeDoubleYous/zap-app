@@ -43,11 +43,8 @@ export class PangolinFormComponent implements OnInit {
       request.set('location', JSON.stringify({lat: 2, lon: 3}));
       request.set('deathType', `${this.deathType}`);
       request.set('note', `${this.note}`);
-
-      const response = await fetch(this.url, {
-        body: request,
-        method: 'POST'
-      }).catch(console.error);
+      
+      this.uploadService.upload(request).subscribe();
 
       this.clearInputs();
     }
