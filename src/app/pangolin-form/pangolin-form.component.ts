@@ -67,7 +67,7 @@ export class PangolinFormComponent implements OnInit {
 
   handleImageChange(e: Event): void{
     const input = e.target as HTMLInputElement;
-    if(input.files){
+    if(input.files && input.files.length > 0){
       this.image = input.files[0];
 
       const reader = new FileReader();
