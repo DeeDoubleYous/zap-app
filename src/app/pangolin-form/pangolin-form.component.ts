@@ -24,7 +24,7 @@ export class PangolinFormComponent implements OnInit {
     private uploadService: UploadService
   ) { }
 
-  deathTypes: string[] = ['electric fences', 'vehicle', 'I done did it myself', 'natural causes'];
+  deathTypes: string[] = ['Electric Fence', 'Vehicle', 'Poaching/Hunting', 'Other Animals','Sickness', 'Unknown'];
 
   pangolin?:IPangolinRecord;
 
