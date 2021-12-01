@@ -51,7 +51,7 @@ input{
     background: var(--accent);
     outline: none;
     border: none;
-    border-radius: 1rem;
+    border-radius: 0.5rem;
 }
 
 #note{
@@ -71,7 +71,7 @@ input{
     position: relative;
     left: 8%;
     background: var(--accent);
-    border-radius: 1rem;
+    border-radius: 0.5rem;
     color: var(--text-main);
 }
 

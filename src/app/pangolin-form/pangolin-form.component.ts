@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { IPangolinRecord } from '../interfaces/IPangolinRecord';
 import { UploadService } from '../handle-upload.service';
+import { ILocation } from '../interfaces/ILocations';
 
 @Component({
   selector: 'app-pangolin-form',
@@ -8,8 +9,6 @@ import { UploadService } from '../handle-upload.service';
   styleUrls: ['./pangolin-form.component.css']
 })
 export class PangolinFormComponent implements OnInit {
-  
-  url = 'https://dw470.brighton.domains/zap_api';
 
   defaultImage = './assets/images/defaultImage.png';
 
@@ -33,20 +32,36 @@ export class PangolinFormComponent implements OnInit {
   }
 
   async handleSubmit(e: Event): Promise<void>{
+    if('geolocation' in navigator){
+      navigator.geolocation.getCurrentPosition(position => {
+        if(this.image){
+          const request = new FormData();
 
-    if(this.image){
-      const request = new FormData();
-     
-      request.set('pangolinImage', this.image);
-      request.set('isDead', `${this.isDead}`);
-      request.set('time', `${this.generateDateString()}`);
-      request.set('location', JSON.stringify({lat: 2, lon: 3}));
-      request.set('deathType', `${this.deathType}`);
-      request.set('note', `${this.note}`);
-      
-      this.uploadService.upload(request);
+          request.set('pangolinImage', this.image);
+          request.set('isDead', `${this.isDead}`);
+          request.set('time', `${this.generateDateString()}`);
+          request.set('location', JSON.stringify({
+            lat: position.coords.latitude, 
+            lon: position.coords.longitude
+          }));
+          request.set(`deathType`, `${this.deathType}`);
+          request.set(`note`, `${this.note}`);
 
-      this.clearInputs();
+          this.uploadService.upload(request);
+          
+          this.clearInputs();
+        }
+      }, error=> {
+        let msg = 'Error: Location unavalible.';
+        if(error.message.toLowerCase().indexOf('user') >= 0){
+          msg += ' Please allow access to location services in your settings.';
+        }
+        alert(msg);
+        console.error(error);
+      });
+    }else{
+      alert(`Error: Browser doesn't support geolocation, please update your browser or try a different browser`);
+      console.error('Geolocation unsupported by browser');
     }
   }
 

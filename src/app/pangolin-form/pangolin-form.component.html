@@ -3,10 +3,10 @@
     <form class='pangolinInput' (submit)='handleSubmit($event)'>
         <input type="file" name="pangolinImage" id="pangolinImage" accept="image/*" (change)="handleImageChange($event)" [(ngModel)]='imageList' capture/><br/>
         <label for="isDead">Is the pangolin Dead?</label><br/>
-        <input type="radio" name="isDead" value="true" [(ngModel)]='isDead' class='isDead'><label for="true">Yes</label><br/>
-        <input type="radio" name="isDead" value="false" [(ngModel)]='isDead' class='isDead'><label for="false">No</label><br/>
+        <input type="radio" name="isDead" [value]="true" [(ngModel)]='isDead' class='isDead'><label for="true">Yes</label><br/>
+        <input type="radio" name="isDead" [value]="false" [(ngModel)]='isDead' class='isDead'><label for="false">No</label><br/>
         <label for="deathType">How did the pangolin die?</label><br/>
-        <select name="deathType" id="deathType" [(ngModel)]="deathType">
+        <select name="deathType" id="deathType" [(ngModel)]="deathType" [disabled]='isDead == false'>
             <option *ngFor='let deathTy of deathTypes' [value]='deathTy'>{{deathTy}}</option>
         </select><br/>
         <label for="note">Additional notes:</label><br/>
