@@ -44,7 +44,7 @@ export class PangolinFormComponent implements OnInit {
             lat: position.coords.latitude, 
             lon: position.coords.longitude
           }));
-          request.set(`deathType`, `${this.deathType}`);
+          if(this.isDead == true) request.set(`deathType`, `${this.deathType}`);
           request.set(`note`, `${this.note}`);
 
           this.uploadService.upload(request);
