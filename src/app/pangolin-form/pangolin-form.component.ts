@@ -65,7 +65,7 @@ export class PangolinFormComponent implements OnInit {
 
   generateDateString(): string {
     const date = new Date(Date.now());
-    return `${date.getFullYear()}/${date.getMonth()}/${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
+    return `${date.getFullYear()}/${date.getMonth()+1}/${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
   }
 
   clearInputs(): void{
