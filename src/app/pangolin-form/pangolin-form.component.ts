@@ -44,7 +44,7 @@ export class PangolinFormComponent implements OnInit {
       request.set('deathType', `${this.deathType}`);
       request.set('note', `${this.note}`);
       
-      this.uploadService.upload(request).subscribe();
+      this.uploadService.upload(request);
 
       this.clearInputs();
     }

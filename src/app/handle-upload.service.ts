@@ -43,10 +43,9 @@ export class UploadService{
 
   upload(upload: FormData){
     if(navigator.onLine){
-      return this.http.post(this.url, upload);
+      this.http.post(this.url, upload).subscribe();
     }else{
       this.queuedUploads.push(upload);
-      return of(this.queuedUploads);
     }
   }
 
