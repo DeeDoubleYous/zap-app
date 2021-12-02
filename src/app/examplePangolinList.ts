@@ -8,8 +8,8 @@ export const exmplePangolin: IPangolinRecord[] = [
       isDead: true,
       deathType: 'car',
       location: {
-        lat: 3,
-        lon: 3
+        lat: 51.507351,
+        lon: -0.127758
       }
     },
     {
@@ -18,8 +18,8 @@ export const exmplePangolin: IPangolinRecord[] = [
       imageUrl: './assets/images/examplePangolin.jpg',
       isDead: false,
       location: {
-        lat: 2,
-        lon: 12
+        lat: 51.507351,
+        lon: 0.872242
       }
     },
     {
@@ -28,8 +28,8 @@ export const exmplePangolin: IPangolinRecord[] = [
       imageUrl: './assets/images/examplePangolin2.jpg',
       isDead: false,
       location: {
-        lat: 2,
-        lon: 12
+        lat: 50.507351,
+        lon: 0.872242
       }
     },
     {
@@ -38,8 +38,8 @@ export const exmplePangolin: IPangolinRecord[] = [
       imageUrl: './assets/images/examplePangolin2.jpg',
       isDead: false,
       location: {
-        lat: 2,
-        lon: 12
+        lat: 50.8351707,
+        lon: -0.126114
       }
     },
     {
@@ -49,8 +49,8 @@ export const exmplePangolin: IPangolinRecord[] = [
       isDead: true,
       deathType: 'car',
       location: {
-        lat: 3,
-        lon: 3
+        lat: 51.507351,
+        lon: -0.127758
       }
     },
   ] 

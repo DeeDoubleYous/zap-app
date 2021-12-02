@@ -31,7 +31,7 @@ export class PangolinFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  async handleSubmit(e: Event): Promise<void>{
+  handleSubmit(e: Event): void{
     if('geolocation' in navigator){
       navigator.geolocation.getCurrentPosition(position => {
         if(this.image){

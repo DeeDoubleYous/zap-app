@@ -11,8 +11,6 @@ export class PangolinListService {
 
   url = 'https://dw470.brighton.domains/zap_api';
 
-  
-
   constructor(
     private http: HttpClient
   ) { 
@@ -23,15 +21,15 @@ export class PangolinListService {
     return this.http.get<IPangolinRecord[]>(`${this.url}/list`);
   }
 
-  getPangolinListFiltered(isDead: boolean):Observable<IPangolinRecord[]>{
+  getMapList(limit: number):Observable<IPangolinRecord[]>{
     return this.http.get<IPangolinRecord[]>(`${this.url}/list`, {
-      params: {
-        'isDead': isDead,
+      params:{
+        limit: limit
       }
     });
   }
 
-  getExampleList():Observable<IPangolinRecord[]>{
+  getExampleList(): Observable<IPangolinRecord[]>{
     return of(exmplePangolin);
   }
 }

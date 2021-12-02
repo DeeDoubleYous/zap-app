@@ -17,5 +17,15 @@
     }
 }
 
+
+.leaflet-popup-content-wrapper{
+    background: var(--main);
+    color: var(--text-main);
+}
+
+.leaflet-popup-tip{
+    background: var(--accent);
+}
+
 html, body { height: 100%; width: 100%; overflow: hidden;}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: var(--main);}
