@@ -1,8 +1,8 @@
 import { Component, AfterViewInit } from '@angular/core';
 import * as L from 'leaflet';
 import { IPangolinRecord } from '../interfaces/IPangolinRecord';
-import { PangolinItemComponent } from '../pangolin-item/pangolin-item.component';
 import { PangolinListService } from '../pangolin-list.service';
+import { DateHelperModule } from '../date-helper/date-helper.module';
 
 @Component({
   selector: 'app-map',
@@ -11,6 +11,8 @@ import { PangolinListService } from '../pangolin-list.service';
 })
 export class MapComponent implements AfterViewInit {
   map?: L.Map;
+
+  dateHelper = new DateHelperModule();
 
   pinIcon = L.icon({
     iconUrl: './assets/images/PinIcon.png',
@@ -27,6 +29,9 @@ export class MapComponent implements AfterViewInit {
     this.initMap();
   }
 
+  /**
+   * Initialise the map
+   */
   initMap():void{
     this.map = L.map('map');
 
@@ -40,40 +45,23 @@ export class MapComponent implements AfterViewInit {
       accessToken: 'pk.eyJ1IjoiYWxleC13aXNoYXJ0IiwiYSI6ImNrdWNoczhqbTEwZ2EycHF2aTM5OHA4MGcifQ.RVRYKZRa6CRVJ1I6ui1ogg'
     }).addTo(this.map);
 
-    navigator.geolocation.getCurrentPosition(position => {
-      this.map?.setView([position.coords.latitude, position.coords.longitude], 15);
-    });
+    this.map?.setView([50.844419, -0.119460], 15);//set the map to around the cockroft building
 
     this.addMarkers();
   }
 
+  /**
+   * Add the markers to the map 
+   */
   addMarkers(): void{
-
-    const fetchDateString = (pangolin: IPangolinRecord): string => {
-      if(pangolin.time){
-        const date = new Date(pangolin.time);
-        return date.toLocaleDateString();
-      }
-      return '';
-    };
-
-    const fetchTimeString = (pangolin: IPangolinRecord): string =>{
-      if(pangolin.time){
-        const date = new Date(pangolin.time);
-        return date.toLocaleTimeString();
-      }
-      return '';
-    }
-
     this.listService.getMapList(50).subscribe(result => {
       if(this.map){
         const markers = L.featureGroup();
         for(let pangolin of result){
-          console.log(pangolin.location);
           const marker = L.marker([pangolin.location.lat, pangolin.location.lon], {icon: this.pinIcon}).addTo(this.map);
           marker.bindPopup(`<div class='pangolinInfo'>
                                 <p>${pangolin.isDead == true ? 'Found Dead' : 'Found Alive' }</p>
-                                <p>Date found: ${fetchDateString(pangolin)} Time found: ${fetchTimeString(pangolin)}</p>
+                                <p>Date found: ${this.dateHelper.fetchDateString(pangolin)} Time found: ${this.dateHelper.fetchTimeString(pangolin)}</p>
                                 ${pangolin.deathType ? `<p>Reported cause of death: ${pangolin.deathType}</p>` : ''}
                                 ${(pangolin.note && pangolin.note.length >= 0) ? `<p>Additional notes: ${pangolin.note}` : ''}
                             </div>`);

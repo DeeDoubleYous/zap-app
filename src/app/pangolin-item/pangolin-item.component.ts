@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Inject } from '@angular/core';
 import { IPangolinRecord } from '../interfaces/IPangolinRecord';
+import { DateHelperModule } from '../date-helper/date-helper.module';
 
 @Component({
   selector: 'app-pangolin-item',
@@ -7,32 +8,24 @@ import { IPangolinRecord } from '../interfaces/IPangolinRecord';
   styleUrls: ['./pangolin-item.component.css']
 })
 export class PangolinItemComponent implements OnInit {
-
-  
   url = 'https://dw470.brighton.domains/zap_api/';
+
+  dateHelper = new DateHelperModule();
 
   @Input() pangolin?: IPangolinRecord;
 
   constructor(
-    ) { }
+  ) { }
 
   ngOnInit(): void {
   }
 
   fetchDateString(): string{
-    if(this.pangolin?.time){
-      const date = new Date(this.pangolin.time);
-      return date.toLocaleDateString();
-    }
-    return '';
+    return this.dateHelper.fetchDateString(this.pangolin);
   } 
 
   fetchTimeString(): string{
-    if(this.pangolin?.time){
-      const date = new Date(this.pangolin.time);
-      return date.toLocaleTimeString();
-    }
-    return '';
+    return this.dateHelper.fetchTimeString(this.pangolin);
   }
 
 }
