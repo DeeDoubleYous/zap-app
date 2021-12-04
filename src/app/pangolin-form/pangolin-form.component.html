@@ -1,7 +1,7 @@
 <div class='container'>
     <img [src]='imageUrl' alt='The uploaded pangolin image' class='pangolinPreview'>
     <form class='pangolinInput' (submit)='handleSubmit($event)'>
-        <input type="file" name="pangolinImage" id="pangolinImage" accept="image/*" (change)="handleImageChange($event)" [(ngModel)]='imageList' capture/><br/>
+        <input type="file" name="pangolinImage" class="pangolinImage" accept="image/*; capture=camera" (change)="handleImageChange($event)" [(ngModel)]='imageList'/><br/>
         <label for="isDead">Is the pangolin Dead?</label><br/>
         <input type="radio" name="isDead" [value]="true" [(ngModel)]='isDead' class='isDead'><label for="true">Yes</label><br/>
         <input type="radio" name="isDead" [value]="false" [(ngModel)]='isDead' class='isDead'><label for="false">No</label><br/>
