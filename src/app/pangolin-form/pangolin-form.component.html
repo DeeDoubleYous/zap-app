@@ -6,8 +6,8 @@
         <input type="radio" name="isDead" [value]="true" [(ngModel)]='isDead' class='isDead'><label for="true">Yes</label><br/>
         <input type="radio" name="isDead" [value]="false" [(ngModel)]='isDead' class='isDead'><label for="false">No</label><br/>
         <label for="deathType">How did the pangolin die?</label><br/>
-        <select name="deathType" id="deathType" [(ngModel)]="deathType" [disabled]='isDead == false'>
-            <option *ngFor='let deathTy of deathTypes' [value]='deathTy'>{{deathTy}}</option>
+        <select name="deathType" id="deathType" [(ngModel)]="deathId" [disabled]='isDead == false'>
+            <option *ngFor='let deathTy of deathTypes' [value]='deathTy.deathId'>{{deathTy.deathName}}</option>
         </select><br/>
         <label for="note">Additional notes:</label><br/>
         <textarea name="note" id="note" cols="30" rows="10" [(ngModel)]='note'></textarea><br/>

@@ -3,7 +3,7 @@
     <div class='pangolinInfo'>
         <p>{{pangolin?.isDead ? 'Found dead' : 'Found Alive'}}</p>
         <p>{{'Date found: ' + fetchDateString() + ' Time found: ' + fetchTimeString()}}</p>
-        <p *ngIf='pangolin?.deathType'>{{'Reported cause of death: ' + pangolin?.deathType}}</p>
+        <p *ngIf='pangolin?.deathName'>{{'Reported cause of death: ' + pangolin?.deathName}}</p>
         <p *ngIf='pangolin?.note'>{{'Additional notes: ' + pangolin?.note}}</p>
     </div>
 </div>

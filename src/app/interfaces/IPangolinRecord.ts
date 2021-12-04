@@ -5,7 +5,7 @@ export interface IPangolinRecord{
     time: Date,
     imageUrl: string,
     isDead: boolean,
-    deathType?: string,
+    deathName?: string,
     note? :string,
     location: ILocation
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { IPangolinRecord } from '../interfaces/IPangolinRecord';
 import { UploadService } from '../handle-upload.service';
-import { ILocation } from '../interfaces/ILocations';
+import { IDeathtype } from '../interfaces/IDeathType';
 
 @Component({
   selector: 'app-pangolin-form',
@@ -17,18 +17,19 @@ export class PangolinFormComponent implements OnInit {
   imageList?: File[];
 
   isDead:boolean = false;
-  deathType?: string;
+  deathId?: string;
   note?: string;
 
   constructor(
     private uploadService: UploadService
   ) { }
 
-  deathTypes: string[] = ['Electric Fence', 'Vehicle', 'Poaching/Hunting', 'Other Animals','Sickness', 'Unknown'];
+  deathTypes: IDeathtype[] = [];
 
   pangolin?:IPangolinRecord;
 
   ngOnInit(): void {
+    this.uploadService.getDeathTypes().subscribe(result => this.deathTypes = result);
   }
 
   handleSubmit(e: Event): void{
@@ -44,7 +45,7 @@ export class PangolinFormComponent implements OnInit {
             lat: position.coords.latitude, 
             lon: position.coords.longitude
           }));
-          if(this.isDead == true) request.set(`deathType`, `${this.deathType}`);
+          if(this.isDead == true) request.set(`deathId`, `${this.deathId}`);
           request.set(`note`, `${this.note}`);
 
           this.uploadService.upload(request);
@@ -85,7 +86,7 @@ export class PangolinFormComponent implements OnInit {
 
   clearInputs(): void{
     this.isDead = false;
-    this.deathType = '';
+    this.deathId = '';
     this.note = '';
     this.image = null;
     this.imageUrl = this.defaultImage;

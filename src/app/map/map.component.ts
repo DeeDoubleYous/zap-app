@@ -62,7 +62,7 @@ export class MapComponent implements AfterViewInit {
           marker.bindPopup(`<div class='pangolinInfo'>
                                 <p>${pangolin.isDead == true ? 'Found Dead' : 'Found Alive' }</p>
                                 <p>Date found: ${this.dateHelper.fetchDateString(pangolin)} Time found: ${this.dateHelper.fetchTimeString(pangolin)}</p>
-                                ${pangolin.deathType ? `<p>Reported cause of death: ${pangolin.deathType}</p>` : ''}
+                                ${pangolin.deathName ? `<p>Reported cause of death: ${pangolin.deathName}</p>` : ''}
                                 ${(pangolin.note && pangolin.note.length >= 0) ? `<p>Additional notes: ${pangolin.note}` : ''}
                             </div>`);
           markers.addLayer(marker);

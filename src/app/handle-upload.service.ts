@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
+import { Observable } from 'rxjs';
+import { IDeathtype } from './interfaces/IDeathType';
 
 @Injectable({
   providedIn: 'root'
@@ -49,6 +50,10 @@ export class UploadService{
     }
   }
 
+  getDeathTypes(): Observable<IDeathtype[]>{
+    return this.http.get<IDeathtype[]>(`${this.url}/deathTypes`);
+  }
+
   private performQueueUpload(): void{
     this.queuedUploads = this.performQueueUploadHelper(this.queuedUploads);
   }
@@ -60,5 +65,4 @@ export class UploadService{
     }
     return [];
   }
-
 }
