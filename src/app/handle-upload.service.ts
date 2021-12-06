@@ -1,16 +1,24 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { IDeathtype } from './interfaces/IDeathType';
+import { IPangolinInserterItem } from './interfaces';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class UploadService{
   
-  url='https://dw470.brighton.domains/zap_api';
+  private url='https://dw470.brighton.domains/zap_api';
 
-  queuedUploads: FormData[] = [];
+  private indexDBns = `Error: IndexDB is not supported in this browser please use another`;
+  private dbName = `queueCache`;
+  private storeName = `queue`;
+
+  private db?: IDBDatabase;
+
+  // private queuedUploads: IPangolinInserterItem[] = [];
 
   constructor(
     private http: HttpClient
@@ -19,50 +27,101 @@ export class UploadService{
   }
 
   private init(): void{
-    const queueCache = localStorage.getItem('queuedUploads');
-
-    if(queueCache){
-      const queue = JSON.parse(queueCache);
-      this.queuedUploads = queue.queue;
-    }
+    this.openDB();
 
     if(navigator.onLine){
-      this.performQueueUpload();
+      this.readQueue();
     }
 
     window.addEventListener('online', () => {
-      this.performQueueUpload();
-    });
-
-    window.addEventListener('pagehide', () => {
-      const queue = JSON.stringify({
-        queue: this.queuedUploads
-      });
-      localStorage.setItem('queuedUploads', queue);
+      this.readQueue();
     });
   }
 
-  upload(upload: FormData){
+  upload(upload: IPangolinInserterItem){
+    const request = this.generateFormData(upload);
     if(navigator.onLine){
-      this.http.post(this.url, upload).subscribe();
+      this.http.post(this.url, request).subscribe();
     }else{
-      this.queuedUploads.push(upload);
+      const queue = this.db?.transaction(this.storeName, 'readwrite').objectStore(this.storeName);
+      queue?.add(upload);
+    }
+  }
+
+  private performQueueUpload(queue: IPangolinInserterItem[]): void{
+    this.performQueueUploadHelper(queue);
+  }
+
+  private performQueueUploadHelper([upload, ...tail ]: IPangolinInserterItem[]): void{
+    if(upload){
+      this.http.post(this.url, this.generateFormData(upload)).subscribe();
+      this.performQueueUploadHelper(tail);
+    }
+    return;
+  }
+
+  private generateFormData(upload: IPangolinInserterItem): FormData{
+    const request = new FormData();
+    for(let key in upload){
+      request.append(key, upload[key]);
+    }
+    return request;
+  }
+
+  private openDB(){
+    if(!window.indexedDB){
+      alert(this.indexDBns);
+    }else{
+      const request = window.indexedDB.open(this.dbName, 5);
+
+      request.addEventListener('success', () => {
+        this.db = request.result;
+        this.readQueue();
+      });
+
+      request.addEventListener('upgradeneeded', () => {
+        request.result.createObjectStore(
+          this.storeName, {keyPath: 'time'}
+        );
+      });
+
+      request.addEventListener('error', error => {
+        console.error(error);
+        alert(`Error: ${error}`);
+      });
+    }
+  }
+
+  private readQueue () {
+    if(this.db){
+      const objectStore = this.db.transaction(this.storeName, 'readonly').objectStore(this.storeName);
+      const getAll = objectStore.getAll();
+      getAll.addEventListener('success', () => {
+        this.performQueueUpload(getAll.result as IPangolinInserterItem[]);
+        getAll.result as IPangolinInserterItem[];
+        this.db?.transaction(this.storeName, 'readwrite').objectStore(this.storeName).clear();
+      })
     }
   }
 
   getDeathTypes(): Observable<IDeathtype[]>{
-    return this.http.get<IDeathtype[]>(`${this.url}/deathTypes`);
-  }
+    if(navigator.onLine){
+      const types = this.http.get<IDeathtype[]>(`${this.url}/deathTypes`);
 
-  private performQueueUpload(): void{
-    this.queuedUploads = this.performQueueUploadHelper(this.queuedUploads);
-  }
+      types.subscribe(resultList => {
+        const storeList = JSON.stringify(resultList);
+        localStorage.setItem('deathTypes', storeList);
+      });
 
-  private performQueueUploadHelper([upload, ...tail ]: FormData[]): FormData[]{
-    if(upload){
-      this.http.post(this.url, upload).subscribe();
-      return this.performQueueUploadHelper(tail);
+      return types;
+    }else{
+      const stored = localStorage.getItem('deathTypes');
+
+      if(stored){
+        const resultList = JSON.parse(stored) as IDeathtype[];
+        return of(resultList);
+      }
     }
-    return [];
+    return of([]);
   }
 }

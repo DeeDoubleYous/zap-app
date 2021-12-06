@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output } from '@angular/core';
 import { IPangolinRecord } from '../interfaces/IPangolinRecord';
 import { UploadService } from '../handle-upload.service';
 import { IDeathtype } from '../interfaces/IDeathType';
+import { IPangolinInserterItem } from '../interfaces';
 
 @Component({
   selector: 'app-pangolin-form',
@@ -17,7 +18,7 @@ export class PangolinFormComponent implements OnInit {
   imageList?: File[];
 
   isDead:boolean = false;
-  deathId?: string;
+  deathId?: number;
   note?: string;
 
   constructor(
@@ -38,6 +39,21 @@ export class PangolinFormComponent implements OnInit {
         if(this.image){
           const request = new FormData();
 
+          let pangolin = {
+            time: this.generateDateString(),
+            pangolinImage: this.image,
+            location: JSON.stringify({
+              lat: position.coords.latitude,
+              lon: position.coords.longitude
+            }),
+            isDead: this.isDead,
+            note: this.note
+          } as IPangolinInserterItem;
+
+          if(this.isDead == true){
+            pangolin.deathId = this.deathId;
+          }
+
           request.set('pangolinImage', this.image);
           request.set('isDead', `${this.isDead}`);
           request.set('time', `${this.generateDateString()}`);
@@ -48,7 +64,7 @@ export class PangolinFormComponent implements OnInit {
           if(this.isDead == true) request.set(`deathId`, `${this.deathId}`);
           request.set(`note`, `${this.note}`);
 
-          this.uploadService.upload(request);
+          this.uploadService.upload(pangolin);
           
           this.clearInputs();
         }
@@ -86,7 +102,7 @@ export class PangolinFormComponent implements OnInit {
 
   clearInputs(): void{
     this.isDead = false;
-    this.deathId = '';
+    this.deathId = undefined;
     this.note = '';
     this.image = null;
     this.imageUrl = this.defaultImage;

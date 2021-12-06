@@ -12,7 +12,7 @@ export class AppComponent implements OnInit{
   isOnline: boolean = false;
 
   constructor(
-    uploadService: UploadService
+    private uploadService: UploadService
   ){}
 
   ngOnInit(){
@@ -26,5 +26,4 @@ export class AppComponent implements OnInit{
 
     this.isOnline = navigator.onLine;
   }
-
 }
