@@ -81,7 +81,7 @@ export class UploadService{
 
       request.addEventListener('upgradeneeded', () => {
         request.result.createObjectStore(
-          this.storeName, {keyPath: 'time'}
+          this.storeName, { keyPath: 'ssn', autoIncrement: true}
         );
       });
 
@@ -98,9 +98,8 @@ export class UploadService{
       const getAll = objectStore.getAll();
       getAll.addEventListener('success', () => {
         this.performQueueUpload(getAll.result as IPangolinInserterItem[]);
-        getAll.result as IPangolinInserterItem[];
-        this.db?.transaction(this.storeName, 'readwrite').objectStore(this.storeName).clear();
-      })
+      });
+      this.db?.transaction(this.storeName, 'readwrite').objectStore(this.storeName).clear();
     }
   }
 
