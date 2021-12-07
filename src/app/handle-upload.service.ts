@@ -12,7 +12,7 @@ export class UploadService{
   
   private url='https://dw470.brighton.domains/zap_api';
 
-  private indexDBns = `Error: IndexDB is not supported in this browser please use another`;
+  private indexDBns = `Error: IndexdDB is not supported in this browser please use another`;
   private dbName = `queueCache`;
   private storeName = `queue`;
 
