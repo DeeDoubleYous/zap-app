@@ -6,8 +6,7 @@ import { MapComponent } from './map/map.component';
 import { PangolinFormComponent } from './pangolin-form/pangolin-form.component';
 
 const routes: Routes = [
-  {path: '', redirectTo:'/home', pathMatch:'full'},
-  {path: 'home', component: HomeComponent},
+  {path: '', component: HomeComponent},
   {path: 'form', component: PangolinFormComponent},
   {path: 'list', component: ListViewComponent},
   {path: 'map',  component: MapComponent}
